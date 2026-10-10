@@ -1,24 +1,26 @@
-ViewStats Privacy Policy
+Spool Privacy Policy
 
-Effective date: August 22, 2026
-Applies to ViewStats for YouTube & Twitch, version 1.0.0 and later versions that reference this policy.
+Effective date: October 11, 2026
+Applies to Spool for YouTube & Twitch, version 1.0.5 and later versions that reference this policy.
 
-1. Who operates ViewStats
+Changed in this revision: the extension was renamed from ViewStats to Spool, and section 3 now also lists hour-of-day totals, per-day goal history, the combined YouTube-and-Twitch total, time added by hand, and the introductory Pro trial. Section 4 now describes the second value written to Chrome Sync.
 
-ViewStats is responsible for the data processing described in this Privacy Policy.
+1. Who operates Spool
+
+Spool is responsible for the data processing described in this Privacy Policy.
 
 Privacy and support contact:
 playspansupport@gmail.com
 
 2. Overview
 
-ViewStats for YouTube & Twitch is a browser extension that measures how long the user spends watching video on YouTube and Twitch and shows them that history.
+Spool for YouTube & Twitch is a browser extension that measures how long the user spends watching video on YouTube and Twitch and shows them that history.
 
-The extension works locally inside the browser. It does not have a developer-operated backend, user account system, analytics service, advertising SDK, tracking service, or remote database. The extension makes no network requests of any kind: its Content Security Policy sets `connect-src 'none'`, and the published package contains no code that opens a network connection. Data processed by the extension is not transmitted to ViewStats or sold to third parties.
+The extension works locally inside the browser. It does not have a developer-operated backend, user account system, analytics service, advertising SDK, tracking service, or remote database. The extension makes no network requests of any kind: its Content Security Policy sets `connect-src 'none'`, and the published package contains no code that opens a network connection. Data processed by the extension is not transmitted to Spool or sold to third parties.
 
 3. Information processed on the user's device
 
-Depending on the features used, ViewStats may process and store the following information locally in Chrome extension storage or IndexedDB:
+Depending on the features used, Spool may process and store the following information locally in Chrome extension storage or IndexedDB:
 
 • display, theme, and language preferences;
 • separate YouTube and Twitch watch-time histories, by day and by week;
@@ -31,6 +33,11 @@ Depending on the features used, ViewStats may process and store the following in
 • the purchase email address entered for optional Pro activation;
 • the signed Pro license key associated with that email address;
 • license status, license identifier, issue date, optional expiry information, and revocation status;
+• hour-of-day totals: how many seconds of watching fall into each hour of the day, kept for the last 90 days and then discarded;
+• the daily goal that was in force on each past day, so that changing the goal does not rewrite how past days are judged;
+• a combined YouTube-and-Twitch total that never counts the same minute twice;
+• watch time the user adds by hand, together with the date and site it was assigned to;
+• whether the introductory Pro trial has started, when it started, and whether it has ended;
 • a device signing key and a signed device baseline used for Pro licensing, described in section 6.
 
 This information is used only to measure, store, and display the user's own watch time, and to verify a purchased Pro license.
@@ -41,20 +48,26 @@ The extension does not store video titles, view counts, likes, comment counts, p
 
 4. Chrome Sync recovery mirror
 
-A compact recovery mirror of YouTube totals and recent daily buckets is written to `chrome.storage.sync`. If the user has Chrome Sync enabled, Google may sync that mirror through the user's own signed-in Chrome account. This is handled entirely by Chrome under the user's own Google account and Chrome settings; it does not reach ViewStats.
+A compact recovery mirror of YouTube totals and recent daily buckets is written to `chrome.storage.sync`. If the user has Chrome Sync enabled, Google may sync that mirror through the user's own signed-in Chrome account. This is handled entirely by Chrome under the user's own Google account and Chrome settings; it does not reach Spool.
+
+Two values are written to `chrome.storage.sync`, not one. Alongside the recovery mirror, the start instant of the introductory Pro trial and whether it has ended are mirrored there as well. This is deliberate: `chrome.storage.local` is cleared by reinstalling the extension or by clearing browsing data, and without a copy that survives those, the seven-day trial could be restarted indefinitely. The mirror holds only a timestamp and a true/false flag. It contains no watch history, no email address, and no licence material.
+
+Neither value is ever read back in a way that can lengthen a trial. The stored start is only ever used to make the trial begin EARLIER, and an ended flag in either copy ends it in both.
+
+"Reset Watch History" clears the watch-time mirror but deliberately leaves the trial anchor in place, for the same reason: a reset must not hand out a second free trial. Users who want that value gone can clear the extension's synced data from Chrome's own settings.
 
 The mirror contains daily totals and an all-time total only. Twitch history, channel names, channel identifiers, content-type breakdowns, and category labels are excluded from it.
 
 5. Legal bases for users in the European Union and European Economic Area
 
-Where the General Data Protection Regulation applies, ViewStats relies on the following legal bases:
+Where the General Data Protection Regulation applies, Spool relies on the following legal bases:
 
 • Performance of a contract or steps requested by the user under Article 6(1)(b) GDPR, including measuring watch time and validating a purchased Pro license.
 • Legitimate interests under Article 6(1)(f) GDPR, including maintaining license integrity, preventing fraudulent activation, handling refunds or payment reversals, securing the extension, and providing support.
 • Compliance with legal obligations under Article 6(1)(c) GDPR where transaction or business records must be retained by law.
 • The user's explicit action when copying a device code, exporting a file, or activating optional features.
 
-ViewStats's legitimate interests do not override the fundamental rights and freedoms of users. Only information necessary for the relevant function is processed.
+Spool's legitimate interests do not override the fundamental rights and freedoms of users. Only information necessary for the relevant function is processed.
 
 6. Device-bound Pro licensing
 
@@ -73,7 +86,7 @@ The device code shown in the extension is derived from the public half of that s
 
 Pro is activated using the purchase email address and a digitally signed license key.
 
-The license signature is verified locally against a public verification key included in the extension package. The extension does not send an activation request, purchase email address, or license key to ViewStats or to any external server. Verification also succeeds with no internet connection.
+The license signature is verified locally against a public verification key included in the extension package. The extension does not send an activation request, purchase email address, or license key to Spool or to any external server. Verification also succeeds with no internet connection.
 
 The extension package may contain a list of revoked license identifiers. These are opaque identifiers and do not contain email addresses, payment information, or other directly identifying information. The list is identical for all installations and is checked locally.
 
@@ -83,7 +96,7 @@ Users may remove a stored activation at any time by selecting Deactivate in the 
 
 8. Clipboard access
 
-ViewStats writes to the clipboard only when the user selects a copy action, such as copying the device code or copying support details. It never reads the clipboard, and it does not monitor clipboard contents.
+Spool writes to the clipboard only when the user selects a copy action, such as copying the device code or copying support details. It never reads the clipboard, and it does not monitor clipboard contents.
 
 9. Notifications
 
@@ -95,29 +108,29 @@ JSON and CSV exports containing the user's watch history are created locally in 
 
 11. Purchases through Ko-fi
 
-Purchases take place outside the ViewStats extension through Ko-fi. Ko-fi independently processes payment information according to its own privacy policy and terms.
+Purchases take place outside the Spool extension through Ko-fi. Ko-fi independently processes payment information according to its own privacy policy and terms.
 
-The information made available to ViewStats in connection with a purchase may include the buyer's email address, order information, purchase status, the device code the buyer sends, and information needed to issue or support a license. ViewStats does not receive complete payment card or bank account details, and no payment information is ever entered into the extension.
+The information made available to Spool in connection with a purchase may include the buyer's email address, order information, purchase status, the device code the buyer sends, and information needed to issue or support a license. Spool does not receive complete payment card or bank account details, and no payment information is ever entered into the extension.
 
-ViewStats may retain the buyer's email address, device code, license identifier, issue date, expiry information where applicable, and license status on a secured local system. These records are used only to issue, reissue, support, or revoke licenses and to handle refunds, payment reversals, fraud prevention, and legal obligations.
+Spool may retain the buyer's email address, device code, license identifier, issue date, expiry information where applicable, and license status on a secured local system. These records are used only to issue, reissue, support, or revoke licenses and to handle refunds, payment reversals, fraud prevention, and legal obligations.
 
 Purchase records are retained only for as long as reasonably necessary for these purposes or as required by applicable law. Records are deleted or anonymized when they are no longer needed, unless retention is legally required.
 
 12. Sharing and sale of information
 
-ViewStats does not sell personal information.
+Spool does not sell personal information.
 
-ViewStats does not share personal information for cross-context behavioral advertising, targeted advertising, profiling, creditworthiness, or lending purposes.
+Spool does not share personal information for cross-context behavioral advertising, targeted advertising, profiling, creditworthiness, or lending purposes.
 
-The extension does not transmit locally stored watch history, preference, channel, or license information to ViewStats or to third parties.
+The extension does not transmit locally stored watch history, preference, channel, or license information to Spool or to third parties.
 
-YouTube and Twitch receive the normal requests needed to use their own websites, under their own terms and privacy policies. ViewStats does not add a separate developer connection. When a user opens the Pro purchase page, Ko-fi's own terms and privacy policy apply to Ko-fi.
+YouTube and Twitch receive the normal requests needed to use their own websites, under their own terms and privacy policies. Spool does not add a separate developer connection. When a user opens the Pro purchase page, Ko-fi's own terms and privacy policy apply to Ko-fi.
 
 13. International data transfers
 
-The extension does not transfer locally processed extension data to ViewStats or to an external server.
+The extension does not transfer locally processed extension data to Spool or to an external server.
 
-Ko-fi, Google, and the Chrome Web Store may process information in countries outside the user's country under their own privacy policies and legal safeguards. ViewStats does not control the independent processing performed by those services.
+Ko-fi, Google, and the Chrome Web Store may process information in countries outside the user's country under their own privacy policies and legal safeguards. Spool does not control the independent processing performed by those services.
 
 14. Data retention and deletion
 
@@ -132,12 +145,12 @@ Users can:
 • reset watch history from the extension's settings;
 • deactivate a stored Pro license;
 • create a replacement device code, which clears the device identity;
-• clear ViewStats's browser storage;
-• uninstall ViewStats.
+• clear Spool's browser storage;
+• uninstall Spool.
 
 Removing the extension normally removes extension-owned storage managed by Chrome.
 
-Requests concerning purchase or license records held by ViewStats may be submitted to playspansupport@gmail.com. ViewStats may request reasonable information to verify that the requester is associated with the relevant purchase.
+Requests concerning purchase or license records held by Spool may be submitted to playspansupport@gmail.com. Spool may request reasonable information to verify that the requester is associated with the relevant purchase.
 
 15. Privacy rights in the EU and EEA
 
@@ -152,7 +165,7 @@ Subject to applicable law, users may have the right to:
 • withdraw consent where processing is based on consent;
 • lodge a complaint with the competent data protection authority.
 
-Because extension data remains on the user's device and is not accessible to ViewStats, users can usually exercise deletion and control directly through the extension or Chrome.
+Because extension data remains on the user's device and is not accessible to Spool, users can usually exercise deletion and control directly through the extension or Chrome.
 
 Requests can be sent to playspansupport@gmail.com.
 
@@ -160,19 +173,19 @@ Requests can be sent to playspansupport@gmail.com.
 
 Residents of certain U.S. states may have rights to know, access, correct, or delete personal information and to receive information about how it is used or disclosed. Users may also have the right not to receive discriminatory treatment for exercising applicable privacy rights.
 
-ViewStats does not sell personal information and does not share personal information for targeted or cross-context behavioral advertising. ViewStats therefore does not provide a separate "Do Not Sell or Share My Personal Information" mechanism.
+Spool does not sell personal information and does not share personal information for targeted or cross-context behavioral advertising. Spool therefore does not provide a separate "Do Not Sell or Share My Personal Information" mechanism.
 
-Applicable requests may be submitted to playspansupport@gmail.com. ViewStats will respond as required by applicable law and may take reasonable steps to verify the request.
+Applicable requests may be submitted to playspansupport@gmail.com. Spool will respond as required by applicable law and may take reasonable steps to verify the request.
 
 17. Automated decision-making
 
-ViewStats automatically verifies license signatures, expiry information, revocation status, device-key possession, and the device baseline to determine whether Pro features are available. This process is necessary to provide and protect the purchased license, and it runs entirely on the user's own device.
+Spool automatically verifies license signatures, expiry information, revocation status, device-key possession, and the device baseline to determine whether Pro features are available. This process is necessary to provide and protect the purchased license, and it runs entirely on the user's own device.
 
-ViewStats does not use personal data for profiling, advertising, credit scoring, lending, employment, insurance, or other decisions that produce legal or similarly significant effects.
+Spool does not use personal data for profiling, advertising, credit scoring, lending, employment, insurance, or other decisions that produce legal or similarly significant effects.
 
 18. Security
 
-ViewStats limits data processing to information required for its functions. Extension data is stored using browser-provided storage facilities.
+Spool limits data processing to information required for its functions. Extension data is stored using browser-provided storage facilities.
 
 Pro licenses use digital signatures and are verified locally. The private signing key is never included in the published extension package; the package contains only the public verification key, which can check a signature but cannot create one. The device signing key is generated as non-exportable, so it cannot be copied out of the browser.
 
@@ -180,23 +193,23 @@ No method of electronic storage can be guaranteed to be completely secure. Users
 
 19. Children
 
-ViewStats is a general-audience productivity tool and does not contain an integrated age restriction. It is not designed to solicit personal information from children or to provide child-directed advertising.
+Spool is a general-audience productivity tool and does not contain an integrated age restriction. It is not designed to solicit personal information from children or to provide child-directed advertising.
 
-The extension does not transmit personal information to ViewStats. Pro purchases must be made by a person legally permitted to complete the transaction or by a parent or legal guardian where required.
+The extension does not transmit personal information to Spool. Pro purchases must be made by a person legally permitted to complete the transaction or by a parent or legal guardian where required.
 
-If a parent or guardian believes that ViewStats holds purchase information relating to a child, they may contact playspansupport@gmail.com to request review or deletion.
+If a parent or guardian believes that Spool holds purchase information relating to a child, they may contact playspansupport@gmail.com to request review or deletion.
 
 20. Do Not Track and advertising identifiers
 
-ViewStats does not use advertising identifiers, tracking cookies, analytics systems, behavioral advertising, or cross-site tracking. It does not respond differently to browser Do Not Track signals because it does not perform this tracking.
+Spool does not use advertising identifiers, tracking cookies, analytics systems, behavioral advertising, or cross-site tracking. It does not respond differently to browser Do Not Track signals because it does not perform this tracking.
 
 21. Hosting of this Privacy Policy
 
-This Privacy Policy is hosted through GitHub Pages. When a person visits this page, GitHub may process technical information such as the visitor's IP address for security and website delivery purposes under the GitHub Privacy Statement. ViewStats does not receive or access GitHub's visitor logs.
+This Privacy Policy is hosted through GitHub Pages. When a person visits this page, GitHub may process technical information such as the visitor's IP address for security and website delivery purposes under the GitHub Privacy Statement. Spool does not receive or access GitHub's visitor logs.
 
 22. Changes to this Privacy Policy
 
-This Privacy Policy may be updated when ViewStats's functionality, legal obligations, or data practices change. The effective date at the top identifies the latest version.
+This Privacy Policy may be updated when Spool's functionality, legal obligations, or data practices change. The effective date at the top identifies the latest version.
 
 If a future version introduces materially different data collection or transmission, the policy and Chrome Web Store disclosures will be updated before that version is published.
 
@@ -206,4 +219,4 @@ For privacy questions, data requests, deletion requests, purchase-record questio
 
 playspansupport@gmail.com
 
-YouTube and Google Chrome are trademarks of Google LLC. Twitch is a trademark of Twitch Interactive, Inc. ViewStats for YouTube & Twitch is an independent product and is not endorsed by, sponsored by, or affiliated with Google LLC or Twitch Interactive, Inc.
+YouTube and Google Chrome are trademarks of Google LLC. Twitch is a trademark of Twitch Interactive, Inc. Spool for YouTube & Twitch is an independent product and is not endorsed by, sponsored by, or affiliated with Google LLC or Twitch Interactive, Inc.
